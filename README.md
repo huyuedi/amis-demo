@@ -16,6 +16,7 @@ window.addEventListener('message', e => {
 发送的数据可以是自定义的，也可以是amis form表单里的数据（包括后端发回来的数据）
 可以通过 amisScoped.getComponentByName('page1.form1').getValues() 来获取到所有表单的值，需要注意 page 和 form 都需要有 name 属性
 发送的数据只能是data和value的值
+(也可以发送自定义数据到子页面，子页面验证后通过jquery与flask后端通信得到数据显示在子页面里)
 
 二：
 iframe给amis发送数据：iframe子页面发送格式：
