@@ -33,4 +33,4 @@ window.addEventListener('message', e => {
 目前amis发送给iframe的数据暂时显示在了iframe子页面的script里，没有放到子页面的amis框架里，子页面主要是threejs的显示，所以显示在script里更方便threejs提取。
 
 使用说明：
-发送的为用户名下的value值，所以在输入框里输入后，可将value值发送到子页面，发送的其他信息通过 console.log()显示在控制台里，可通过开发者工具查看。
+发送的为输入框里的value值，所以在输入框里输入后，可将value值发送到子页面，发送的其他信息通过 console.log()显示在控制台里，可通过开发者工具查看。
