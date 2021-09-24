@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/sdk.css" />
+</head>
+<body>
+<script src="../static/sdk.js"></script>
+<div id="test" ></div>
+<div id="root" ></div>
+<script type="text/javascript">
+    window.addEventListener('message', e => {
+            // e.data 获取当前数据域数据，进行使用
+            data=e.data
+            adta1=JSON.stringify(data)
+            if(data['data']['name']){
+                document.getElementById('test').innerHTML = data['data']['name']
+            }
+            console.log(data)                              //控制台显示得到的数据
+        });
+
+    (function () {
+        let amis = amisRequire('amis/embed');
+        let amisJSON = {
+            type: 'page',
+            title: '表单页面',
+            name:'page1',
+            body:[
+                {
+                            type: 'button',
+                            label:'发送数据',
+                            onClick: () => {
+                                window.parent.postMessage(
+                                    {
+                                        data1:"123"
+                                    },
+                                );
+                            }
+                        }
+            ],
+        };
+        let amisScoped = amis.embed('#root', amisJSON);
+    })();
+</script>
+</body>
+</html>

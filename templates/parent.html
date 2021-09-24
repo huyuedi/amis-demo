@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/sdk.css" />
+</head>
+<body>
+<script src="../static/sdk.js"></script>
+<div id="test" ></div>
+<div id="root" ></div>
+<script type="text/javascript">
+    window.addEventListener('message', e => {
+            // e.data 获取当前数据域数据，进行使用
+            data=e.data
+            adta1=JSON.stringify(data)
+            if(data['data1']){
+                document.getElementById('test').innerHTML = data['data1']
+            }
+            console.log(data)                              //控制台显示得到的数据
+        });
+    (function () {
+            let amis = amisRequire('amis/embed');
+            let amisJSON = {
+                type:"container",
+                body:{
+                    "type": 'flex',                                             //amis布局框架
+                    "items":
+                        [
+                            {
+                                "type": "page",
+                                 title: '表单页面',
+                                "style": {
+                                    "width": 800,                                //框架宽高
+                                    "height":700
+                                },
+                                "className":"b",
+                                "name":"page1",
+                                "body": [
+                                    {
+                                        "type": "form",
+                                        "name":"form1",
+                                        "data":{
+                                            "data1":"I am data"
+                                        },
+                                        "controls": [
+                                            {
+                                                "type": "text",
+                                                "placeholder": "输入信息后再发送",
+                                                "label": "数据",
+                                                "name": "name",
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        type: 'button',
+                                        label: '发送数据',
+                                        onClick: () => {
+                                            window.frames[0].postMessage(                     //只能发送data和value数据
+                                                {
+                                                    data:amisScoped.getComponentByName('page1.form1').getValues(),
+                                                },
+                                            );
+                                        }
+                                    },
+                                ]
+                            },
+                            {
+                                "type": "iframe",                                     //内嵌iframe框架
+                                "src": "/child",
+                                "className":"b",
+                                "style": {
+                                    "height":700
+                                },
+                            }
+                        ]
+                }
+            };
+            let amisScoped = amis.embed('#root', amisJSON);
+        })();
+</script>
+
+</body>
+</html>
